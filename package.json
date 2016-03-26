@@ -1,0 +1,15 @@
+{
+  "name": "skyrocket-notes",
+  "version": "1.0.0",
+  "description": "A simple note taking app",
+  "author": "Rowan Weismiller (rowan.weismiller@gmail.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.2.0"
+  },
+  "dependencies": {
+    "normalize-scss": "^4.0.3"
+  }
+}
