@@ -1,0 +1,15 @@
+// =============================================================================
+// Buttons
+// =============================================================================
+
+.button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    color: $white;
+    background-color: $color-primary;
+    border-radius: $border-radius;
+    font-family: "Helvetica Neue";
+    font-size: $font-size-sm;
+    // font-weight: bold;
+    text-decoration: none;
+}

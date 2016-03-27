@@ -1,19 +1,58 @@
 <html>
 <head>
-    <title>Skyrocket Notes</title>
-    <link href="styles/styles.css" rel="stylesheet" media="all">
+    <title>Rowbot Notes</title>
+    <link href="/assets/css/min/style.min.css" rel="stylesheet" media="all">
 </head>
 
 <body>
-    <nav>
-        <a class="button" href="#">Submit</a>
-        Main Action Bar
-    </nav>
-    <nav>
-        Sidebar List of Notes
-    </nav>
-    <main>
-        Main Content of a Note
-    </main>
+    <div class="app">
+        <nav class="header">
+            <div class="header__left">
+                <a class="button">View All Notes</a>
+                <h1 class="site-title">Rowbot Notes</h1>
+            </div>
+            <div class="header__right">
+                <a class="button" href="#">Delete Note</a>
+                <a class="button" href="#">Create Note</a>
+            </div>
+        </nav>
+        <nav>
+            Sidebar List of Notes
+            <ul>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+                <li>
+                    <p><strong>Title of note</strong></p>
+                    <p>Content of the note.</p>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <input type="text" id="title" />
+            <textarea id="body" ></textarea>
+        </main>
+    </div>
 </body>
 </html>
