@@ -1,2 +1,11 @@
 $color-primary: #008080;
-$white:        #ffffff;
+$white:         #ffffff;
+$gray-darkest:  #333333;
+$gray-dark:     #666666;
+$gray:          #777777;
+$gray-light:    #dddddd;
+$gray-lighter:  #fafafa;
+
+$text:          $gray-darkest;
+$text-light:    $gray-dark;
+$border:        $gray-light;

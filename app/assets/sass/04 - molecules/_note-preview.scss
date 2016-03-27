@@ -1,0 +1,45 @@
+.note-preview {
+    padding: 1rem;
+    border-bottom: 1px solid $border;
+    list-style-type: none;
+    cursor: pointer;
+    transition: background 0.1s ease-in-out;
+
+    &:hover,
+    &:focus {
+        background-color: $gray-lighter;
+    }
+}
+
+.note-preview__list {
+    margin: 0 0 26.5rem;
+    padding: 0;
+}
+
+.note-preview__title,
+.note-preview__date,
+.note-preview__excerpt {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.note-preview__title {
+    margin-bottom: 0.5rem;
+    font-size: $font-size-sm;
+    font-weight: 600;
+}
+
+.note-preview__date {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $gray;
+    font-size: $font-size-xs;
+}
+
+.note-preview__excerpt {
+    color: $gray;
+    font-size: $font-size-xs;
+}

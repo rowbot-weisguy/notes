@@ -2,7 +2,7 @@
 // Typography Variables
 // =============================================================================
 
-$font-family: 'Garamond', serif;
+$font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 $font-family-actions: 0;
 
 $font-size-base: 2rem;
@@ -16,6 +16,7 @@ $font-size-h5: $font-size-base;
 $font-size-h6: type-level($font-size-base, -1, $font-size-multiplier);
 
 $font-size-reg: $font-size-base;
+$font-size-xs: type-level($font-size-base, -2, $font-size-multiplier);
 $font-size-sm: type-level($font-size-base, -1, $font-size-multiplier);
 $font-size-lg: type-level($font-size-base, 1, $font-size-multiplier);
 
@@ -23,12 +24,13 @@ $font-size-lg: type-level($font-size-base, 1, $font-size-multiplier);
 // Typography Declarations
 // =============================================================================
 
-
 html {
     font-size: 62.5%; // 10px
 }
 
 body {
+    color: $text;
     font-family: $font-family;
     font-size: 1.8rem;
+    line-height: 1.414;
 }

@@ -1,0 +1,34 @@
+.note {
+    margin: 0;
+    padding: 4rem;
+}
+
+.note__date {
+    display: block;
+    margin-bottom: 2rem;
+    font-size: type-level($font-size-base, -2, $font-size-multiplier);
+}
+
+.note__title,
+.note__body {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    -webkit-appearance: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.note__title {
+    margin-bottom: 2rem;
+    font-size: type-level($font-size-base, 3, $font-size-multiplier);
+}
+
+.note__body {
+    min-height: 28rem;
+    resize: none;
+    overflow: auto;
+}

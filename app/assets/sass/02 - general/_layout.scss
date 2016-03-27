@@ -1,0 +1,27 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.layout__header {
+    flex: 0 0 4rem;
+}
+
+.layout__body {
+    display: flex;
+    flex-direction: row;
+}
+
+.layout__sidebar,
+.layout__note {
+    overflow-y: auto;
+}
+
+.layout__sidebar {
+    flex: 0 0 30rem;
+}
+
+.layout__note {
+    flex-grow: 1;
+}

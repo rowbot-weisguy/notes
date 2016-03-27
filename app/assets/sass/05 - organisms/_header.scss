@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 6rem;
+    padding: 3rem 1rem;
+    border-bottom: 1px solid $border;
 }
 
 .header__left {}
