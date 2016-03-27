@@ -14,6 +14,10 @@ var paths = {
         src: basePaths.src + 'images/',
         dest: basePaths.dest + 'images/min/'
     },
+    icons: {
+        src: basePaths.src + 'font/',
+        dest: basePaths.dest + 'font/'
+    },
     scripts: {
         src: basePaths.src + 'js/',
         dest: basePaths.dest + 'js/min/'
@@ -27,6 +31,7 @@ var paths = {
 var appFiles = {
     html: paths.html.src + '**/*.html',
     styles: paths.styles.src + '**/*.scss',
+    icons: paths.icons.src + '**/*.*',
     scripts: [paths.scripts.src + 'scripts.js']
 };
 
@@ -90,6 +95,11 @@ gulp.task('css', function(){
         .pipe(browserSync.stream());
 });
 
+gulp.task('icons', function() {
+    return gulp.src(appFiles.icons)
+        .pipe(gulp.dest(paths.icons.dest));
+});
+
 gulp.task('scripts', function(){
     gulp.src(vendorFiles.scripts.concat(appFiles.scripts))
         .pipe(plugins.concat('app.js'))
@@ -131,6 +141,5 @@ gulp.task('serve', ['css'], function() {
     gulp.watch(appFiles.html).on('change', browserSync.reload);
 });
 
-
-gulp.task('default', ['html', 'css', 'scripts', 'serve']);
-gulp.task('build', ['html', 'css', 'scripts']);
+gulp.task('build', ['html', 'css', 'icons', 'scripts']);
+gulp.task('default', ['build', 'serve']);

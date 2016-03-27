@@ -10,6 +10,10 @@
     border-radius: $border-radius;
     font-family: "Helvetica Neue";
     font-size: $font-size-sm;
-    // font-weight: bold;
     text-decoration: none;
+    text-transform: capitalize;
+
+    i[class^="icon-"]:before {
+        font-size: $font-size-base;
+    }
 }

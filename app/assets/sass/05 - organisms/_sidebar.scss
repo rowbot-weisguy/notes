@@ -1,3 +1,14 @@
 .sidebar {
     padding: 0;
 }
+
+.sidebar__main {
+}
+
+.sidebar__bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 26.5rem;
+    border-top: 1px solid $border;
+}

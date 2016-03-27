@@ -3,6 +3,22 @@
     padding: 4rem;
 }
 
+.note__delete {
+    float: right;
+    padding: 1rem;
+    margin-top: -1rem;
+    margin-right: -1rem;
+    color: $gray-light;
+
+    &:hover {
+        color: $gray;
+    }
+
+    i[class^="icon-"]:before {
+        margin-right: 0;
+    }
+}
+
 .note__date {
     display: block;
     margin-bottom: 2rem;

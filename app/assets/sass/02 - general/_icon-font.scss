@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'notes-icons';
+  src: url('../../font/notes-icons.eot?45818411');
+  src: url('../../font/notes-icons.eot?45818411#iefix') format('embedded-opentype'),
+       url('../../font/notes-icons.woff2?45818411') format('woff2'),
+       url('../../font/notes-icons.woff?45818411') format('woff'),
+       url('../../font/notes-icons.ttf?45818411') format('truetype'),
+       url('../../font/notes-icons.svg?45818411#notes-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'notes-icons';
+    src: url('../font/notes-icons.svg?45818411#notes-icons') format('svg');
+  }
+}
+*/
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "notes-icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 0.5em;
+  text-align: center;
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+
+  // Font smoothing. That was taken from TWBS
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-trash:before { content: '\e800'; } /* '' */
+.icon-edit-alt:before { content: '\e801'; } /* '' */
