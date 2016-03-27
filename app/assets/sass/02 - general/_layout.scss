@@ -5,13 +5,13 @@
 }
 
 .layout__header {
-    flex: 0 0 4rem;
+    flex: 0 0 8rem;
 }
 
 .layout__body {
-    position: relative;
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
 }
 
 .layout__sidebar,
@@ -21,6 +21,7 @@
 
 .layout__sidebar {
     flex: 0 0 30rem;
+    border-right: 1px solid $border;
 }
 
 .layout__note {

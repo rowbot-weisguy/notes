@@ -132,13 +132,17 @@ gulp.task('serve', ['css'], function() {
         server: "./public"
     });
 
-    gulp.watch(appFiles.styles, ['build']).on('change', function(evt) {
+    gulp.watch(appFiles.styles, ['css']).on('change', function(evt) {
         changeEvent(evt);
     });
-    gulp.watch(appFiles.html, ['build']).on('change', function(evt) {
+    gulp.watch(appFiles.html, ['html']).on('change', function(evt) {
+        changeEvent(evt);
+    });
+    gulp.watch(appFiles.scripts, ['scripts']).on('change', function(evt) {
         changeEvent(evt);
     });
     gulp.watch(appFiles.html).on('change', browserSync.reload);
+    gulp.watch(appFiles.scripts).on('change', browserSync.reload);
 });
 
 gulp.task('build', ['html', 'css', 'icons', 'scripts']);

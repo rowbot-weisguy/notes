@@ -44,7 +44,8 @@
 }
 
 .note__body {
-    min-height: 28rem;
+    min-height: 24rem;
+    max-width: 80rem;
     resize: none;
     overflow: auto;
 }

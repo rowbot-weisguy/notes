@@ -1,4 +1,5 @@
 .sidebar {
+    position: relative;
     padding: 0;
 }
 
@@ -6,9 +7,10 @@
 }
 
 .sidebar__bottom {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
-    width: 26.5rem;
+    width: 30rem;
     border-top: 1px solid $border;
+    border-right: 1px solid $border;
 }

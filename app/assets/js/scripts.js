@@ -1,3 +1,37 @@
+
+var testNotes = [
+    {
+        'id': 73,
+        'date': 'March 27th',
+        'title': 'Test note',
+        'body': 'Test content...'
+    },
+    {
+        'id': 74,
+        'date': 'March 27th',
+        'title': 'Test note',
+        'body': 'Test content...'
+    },
+    {
+        'id': 75,
+        'date': 'March 27th',
+        'title': 'Test note',
+        'body': 'Test content...'
+    },
+    {
+        'id': 76,
+        'date': 'March 27th',
+        'title': 'Test note',
+        'body': 'Test content...'
+    },
+    {
+        'id': 77,
+        'date': 'March 27th',
+        'title': 'Test note',
+        'body': 'Test content...'
+    }
+];
+
 // Notes
 // ---
 // display selected note
@@ -7,64 +41,60 @@
 // get list of notes (and automatically select the first one)
 // save to localStorage
 
-var testNotes = [
-    {
-        'id': '73',
-        'date': 'March 27th',
-        'title': 'Test note',
-        'body': 'Test content...'
-    },
-    {
-        'id': '74',
-        'date': 'March 27th',
-        'title': 'Test note',
-        'body': 'Test content...'
-    },
-    {
-        'id': '75',
-        'date': 'March 27th',
-        'title': 'Test note',
-        'body': 'Test content...'
-    },
-    {
-        'id': '76',
-        'date': 'March 27th',
-        'title': 'Test note',
-        'body': 'Test content...'
-    },
-    {
-        'id': '77',
-        'date': 'March 27th',
-        'title': 'Test note',
-        'body': 'Test content...'
-    }
-];
-
 var Notes = (function() {
-
-    var notes = testNotes;
-    var currentNote;
-    console.log(notes);
-
-    saveNotes: function() {
-
-    },
-
     return {
-        addNote: function() {
+        notes: localStorage.getItem('notes') ? JSON.parse(localStorage.getItem('notes')) : testNotes,
 
+        getLargestId: function() {
+            var largestId = 0;
+            Notes.notes.forEach(function(note) {
+                if (note.id > largestId) {
+                    largestId = note.id;
+                }
+            });
+            return largestId;
         },
-        updateNote: function(title, date, body) {
 
+        saveNotes: function() {
+            localStorage.setItem('notes', JSON.stringify(notes));
+        },
+
+        addNote: function() {
+            var newNote = {
+                id: (Notes.getLargestId() + 1),
+                date: Date.now(),
+                title: '',
+                body: ''
+            };
+
+            Notes.notes.push(newNote);
+            saveNotes();
+            return newNote.id;
+        },
+
+        updateNote: function(id, title, body) {
+            Notes.notes.forEach(function(note) {
+                if (note.id === id) {
+
+                }
+            });
+            saveNotes();
         },
         deleteNote: function(id) {
 
+            saveNotes();
         },
         getNote: function(id) {
-
+            var chosenNote;
+            Notes.notes.forEach(function(note, ) {
+                if (note.id === id) {
+                    chosenNote = note;
+                }
+            });
+            return chosenNote;
         },
         getAllNotes: function() {
-
+            return Notes.notes;
         }
     };
 }());
@@ -79,25 +109,25 @@ var Notes = (function() {
 // handle 'delete note' clicks
 // handle 'updates' to notes
 
-var NotesUI = (function() {
-    return {
-        renderNote: function(id) {
+// var NotesUI = (function() {
+//     return {
+//         renderNote: function(id) {
 
-        },
-        renderList: function() {
+//         },
+//         renderList: function() {
 
-        },
-        selectHandler: function() {
+//         },
+//         selectHandler: function() {
 
-        },
-        createHandler: function() {
+//         },
+//         createHandler: function() {
+//             var newNote = Notes.addNote();
+//         },
+//         deleteHandler: function() {
 
-        },
-        deleteHandler: function() {
+//         },
+//         updateHandler: function() {
 
-        },
-        updateHandler: function() {
-
-        }
-    };
-}());
+//         }
+//     };
+// }());
