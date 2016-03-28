@@ -109,7 +109,7 @@ var NotesUI = (function() {
 
         Notes.updateNote(id, title, body);
         renderList();
-        document.querySelector('[data-note-id="' + id + '"]').click();
+        document.querySelector('[data-note-id="' + id + '"]').classList.add(states.selected);
     }
 
     function getSelectedId() {
