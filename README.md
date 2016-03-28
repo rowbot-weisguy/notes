@@ -28,8 +28,8 @@ together for myself. Unfortunately, I had to adjust it manually several times as
 I was working as I discovered my particular needs for the project.
 
 So from the outset, I struggled with a lack of planning or clear vision on how I
-was going to execute this project at the code-level. Fortunately, I had a strong
-vision for the UI.
+was going to execute this project at the code and build level. Fortunately, I
+had a strong vision for the UI.
 
 I got into my happy place when I was writing SCSS for everything, and I think it
 ended up looking pretty good. I didn't bother making it responsive yet because it
