@@ -1,12 +1,24 @@
 .note {
     margin: 0;
     padding: 4rem;
+    background-color: $white;
 
     &.is-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-color: $gray-light;
+        transition: background 0.1s ease-in-out;
 
-        * {
+        .note__date,
+        .note__title,
+        .note__body,
+        .note__delete {
             display: none;
+        }
+
+        .note__empty {
+            display: block;
         }
     }
 }
@@ -56,4 +68,9 @@
     max-width: 80rem;
     resize: none;
     overflow: auto;
+}
+
+.note__empty {
+    display: none;
+    font-size: type-level($font-size-base, 1, $font-size-multiplier);
 }
