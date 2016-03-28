@@ -28,6 +28,7 @@ var NotesUI = (function() {
             note.date.year;
         titleEl.value = note.title;
         bodyEl.value = note.body;
+        titleEl.focus();
     }
 
     function renderList() {
