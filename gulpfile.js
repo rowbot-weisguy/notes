@@ -32,7 +32,7 @@ var appFiles = {
     html: paths.html.src + '**/*.html',
     styles: paths.styles.src + '**/*.scss',
     icons: paths.icons.src + '**/*.*',
-    scripts: [paths.scripts.src + 'scripts.js']
+    scripts: paths.scripts.src + '**/*.js'
 };
 
 var vendorFiles = {

@@ -8,7 +8,6 @@
     <div class="layout app">
         <nav class="layout__header header">
             <div class="header__left">
-                <!-- <a class="button js-view-notes">View All Notes</a> -->
                 <h1 class="site-title">Notes</h1>
             </div>
             <div class="header__right">
@@ -17,108 +16,16 @@
         </nav>
         <div class="layout__body">
             <nav class="layout__sidebar sidebar">
-                <ul class="sidebar__main note-preview__list">
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note blah blah ifjdsfsdfjsdoi super duper long line.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                    <li class="note-preview">
-                        <span class="note-preview__date">Feb 21 2016</span>
-                        <p class="note-preview__title">Title of note</p>
-                        <p class="note-preview__excerpt">Content of the note.</p>
-                    </li>
-                </ul>
-                <div class="sidebar__bottom note-preview__count">
-                    18 notes
-                    <a class="note-preview__create js-create-note"><i class="icon-edit-alt"></i><span class="sr-only">Create Note</span></a>
+                <ul class="sidebar__main note-preview__list js-note-list"><!-- Note previews load here --></ul>
+                <div class="sidebar__bottom note-preview__count js-note-count">
+                    Notes
                 </div>
             </nav>
-            <main class="layout__note note">
+            <main class="layout__note note js-note">
                 <a class="note__delete js-delete-note" href="#"><i class="icon-trash"></i><span class="sr-only">Delete Note</span></a>
-                <span class="note__date">Last edited at 10:52PM on March 26th, 2016</span>
-                <input class="note__title" name="title" type="text" id="title" placeholder="Enter a title here..."/>
-                <textarea class="note__body" name="body" id="body" placeholder="Enter your note here..." ></textarea>
+                <span class="note__date js-note-date">Last edited at 10:52PM on March 26th, 2016</span>
+                <input class="note__title js-note-title" name="title" type="text" id="title" placeholder="Enter a title here..."/>
+                <textarea class="note__body js-note-body" name="body" id="body" placeholder="Enter your note here..." ></textarea>
             </main>
         </div>
     </div>

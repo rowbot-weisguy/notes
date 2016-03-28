@@ -9,6 +9,10 @@
     &:focus {
         background-color: $gray-lighter;
     }
+
+    &.is-selected {
+        background-color: rgba($color-primary, 0.1);
+    }
 }
 
 .note-preview__list {
@@ -47,13 +51,4 @@
 .note-preview__count {
     padding: 1rem;
     background-color: $white;
-}
-
-.note-preview__create {
-    float: right;
-    color: $gray;
-
-    i[class^="icon-"]:before {
-        line-height: 1.414;
-    }
 }
