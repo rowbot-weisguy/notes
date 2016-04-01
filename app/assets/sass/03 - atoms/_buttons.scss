@@ -8,8 +8,9 @@
     color: $white;
     background-color: $color-primary;
     border-radius: $border-radius;
-    font-family: "Helvetica Neue";
+    font-family: $font-family;
     font-size: $font-size-sm;
+    font-weight: 400;
     text-decoration: none;
     text-transform: capitalize;
 
