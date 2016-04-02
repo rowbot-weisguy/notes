@@ -1,11 +1,15 @@
-$color-primary: #0095dd;
-$white:         #ffffff;
-$gray-darkest:  #333333;
-$gray-dark:     #666666;
-$gray:          #777777;
-$gray-light:    #dddddd;
-$gray-lighter:  #f3f3f3;
+$color-primary:    #0095dd;
+$color-primary-bg: lighten($color-primary, 50%);
+$color-danger:     #d9534f;
+$color-danger-bg:  lighten($color-danger, 50%);
 
-$text:          $gray-darkest;
-$text-light:    $gray-dark;
-$border:        $gray-light;
+$white:            #ffffff;
+$gray-darkest:     #333333;
+$gray-dark:        #666666;
+$gray:             #777777;
+$gray-light:       #dddddd;
+$gray-lighter:     #f3f3f3;
+
+$text:             $gray-darkest;
+$text-light:       $gray-dark;
+$border:           $gray-light;

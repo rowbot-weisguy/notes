@@ -1,17 +1,37 @@
 .note-preview {
     padding: 1rem;
+    background-color: $white;
     border-bottom: 1px solid $border;
     list-style-type: none;
     cursor: pointer;
-    transition: background 0.1s ease-in-out;
 
     &:hover,
     &:focus {
+        transition: background 0.1s ease-in-out;
         background-color: $gray-lighter;
     }
 
     &.is-selected {
-        background-color: rgba($color-primary, 0.1);
+        transition: background 0.3s ease-in-out;
+        background-color: $color-primary-bg;
+    }
+
+    &.is-entering {
+        background-color: lighten($color-primary, 20%);
+
+        & ~ .note-preview {
+            animation: 0.3s move-down ease-in-out;
+        }
+    }
+
+    &.is-leaving {
+        background-color: lighten($color-danger, 10%);
+        transition: transform 0.3s ease-in;
+        transform: translateX(-300%);
+
+        & ~ .note-preview {
+            animation: 0.2s move-up ease-in-out 0.1s;
+        }
     }
 }
 

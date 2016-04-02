@@ -13,7 +13,9 @@ var NotesUI = (function() {
     };
 
     var states = {
+        entering: 'is-entering',
         selected: 'is-selected',
+        leaving: 'is-leaving',
         empty: 'is-empty'
     };
 
@@ -33,34 +35,44 @@ var NotesUI = (function() {
 
     function renderList() {
         var notes = Notes.getNotes();
-        var payload = '';
-        var target = document.querySelector(hooks.list);
-        var count = document.querySelector(hooks.count);
+        var list = document.querySelector(hooks.list);
+        list.innerHTML = '';
 
         notes.forEach(function(note, index) {
-            payload = generatePreviewMarkup(note) + payload;
+            var noteEl = generateNote(note);
+            list.insertBefore(noteEl, list.firstChild);
         });
 
-        target.innerHTML = payload;
-        count.innerHTML = notes.length + ' notes';
+        renderCount();
     }
 
-    function generatePreviewMarkup(note) {
-        var payload = '<li class="note-preview js-note-item" data-note-id=' + note.id + '>' +
-        '<span class="note-preview__date">' + note.date.month + ' ' + note.date.date + ', ' + note.date.year + '</span>' +
-        '<p class="note-preview__title">';
-        if (note.title.length > 0) {
-            payload += note.title;
-        } else {
-            payload += 'Untitled Note';
-        }
-        payload += '</p>';
-        if (note.body.length > 0) {
-            payload += '<p class="note-preview__excerpt">' + note.body + '</p>';
-        }
-        payload += '</li>';
+    function renderCount() {
+        var count = document.querySelector(hooks.count);
+        count.innerHTML = Notes.getNotes().length + ' notes';
+    }
 
-        return payload;
+    function generateNote(note) {
+        var noteEl = document.createElement('li');
+        noteEl.classList.add('note-preview', 'js-note-item');
+        noteEl.setAttribute('data-note-id', note.id);
+
+        var dateEl = document.createElement('span');
+        dateEl.classList.add('note-preview__date');
+        dateEl.textContent = note.date.month + ' ' + note.date.date + ', ' + note.date.year;
+
+        var titleEl = document.createElement('p');
+        titleEl.classList.add('note-preview__title');
+        titleEl.textContent = note.title.length > 0 ? note.title : 'Untitled Note';
+
+        var bodyEl = document.createElement('p');
+        bodyEl.classList.add('note-preview__excerpt');
+        bodyEl.textContent = note.body;
+
+        noteEl.appendChild(dateEl);
+        noteEl.appendChild(titleEl);
+        noteEl.appendChild(bodyEl);
+
+        return noteEl;
     }
 
     function selectHandler(e) {
@@ -82,25 +94,43 @@ var NotesUI = (function() {
     }
 
     function createHandler() {
+        var createButton = document.querySelector(hooks.create);
+        createButton.removeEventListener('click', createHandler);
         var newId = Notes.addNote();
-        var newNote = Notes.getNote(newId);
-        renderList();
-        document.querySelector('[data-note-id="' + newId + '"]').click();
+        var note = Notes.getNote(newId);
+        var noteEl = generateNote(note);
+        var list = document.querySelector(hooks.list);
+        list.insertBefore(noteEl, list.firstChild);
+        noteEl.click();
+        noteEl.classList.add(states.entering);
+        noteEl.addEventListener(whichTransitionEvent(), function() {
+            noteEl.classList.remove(states.entering);
+            createButton.addEventListener('click', createHandler);
+        });
     }
 
     function deleteHandler() {
+        var deleteButton = document.querySelector(hooks.destroy);
+        deleteButton.removeEventListener('click', deleteHandler);
+        var selectedEl = getSelectedElement();
         var selectedId = getSelectedId();
-        var nextId = selectedId - 1;
-        Notes.deleteNote(selectedId);
-        renderList();
-        document.querySelector(hooks.date).innerHTML = '';
-        document.querySelector(hooks.title).value = '';
-        document.querySelector(hooks.body).value = '';
-        if (document.querySelector(hooks.item) != null) {
-            document.querySelector(hooks.item).click();
-        } else {
-            (document.querySelector(hooks.note).classList.add(states.empty));
-        }
+
+        selectedEl.classList.add(states.leaving);
+        selectedEl.addEventListener(whichTransitionEvent(), function() {
+            selectedEl.parentNode.removeChild(selectedEl);
+            Notes.deleteNote(selectedId);
+
+            document.querySelector(hooks.date).innerHTML = '';
+            document.querySelector(hooks.title).value = '';
+            document.querySelector(hooks.body).value = '';
+
+            if (document.querySelector(hooks.item) != null) {
+                document.querySelector(hooks.item).click();
+            } else {
+                (document.querySelector(hooks.note).classList.add(states.empty));
+            }
+            deleteButton.addEventListener('click', deleteHandler);
+        });
     }
 
     function updateHandler() {
@@ -113,8 +143,12 @@ var NotesUI = (function() {
         document.querySelector('[data-note-id="' + id + '"]').classList.add(states.selected);
     }
 
+    function getSelectedElement() {
+        return document.querySelector(hooks.selected);
+    }
+
     function getSelectedId() {
-        var selected = document.querySelector(hooks.selected);
+        var selected = getSelectedElement();
         if (selected != null) {
             return parseInt(selected.dataset.noteId);
         }
