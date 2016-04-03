@@ -71,7 +71,11 @@
 
 .note__title {
     margin-bottom: 2rem;
-    font-size: type-level($font-size-base, 3, $font-size-multiplier);
+    font-size: type-level($font-size-base, 1, $font-size-multiplier);
+
+    @include screen-min-md {
+        font-size: type-level($font-size-base, 3, $font-size-multiplier);
+    }
 }
 
 .note__body {

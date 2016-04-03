@@ -6,3 +6,9 @@
     height: 1px;
     overflow: hidden;
 }
+
+.u-sm-hide {
+    @include screen-max-sm {
+        display: none;
+    }
+}

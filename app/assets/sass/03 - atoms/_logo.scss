@@ -1,0 +1,11 @@
+.logo {
+    display: inline-block;
+    height: 4rem;
+    width: 4rem;
+    padding: 0.25rem;
+
+    @include screen-min-md {
+        padding: 0;
+        margin-right: 1rem;
+    }
+}

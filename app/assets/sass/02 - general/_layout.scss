@@ -5,7 +5,11 @@
 }
 
 .layout__header {
-    flex: 0 0 8rem;
+    flex: 0 0 6rem;
+
+    @include screen-min-md {
+        flex: 0 0 8rem;
+    }
 }
 
 .layout__body {

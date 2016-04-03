@@ -1,9 +1,12 @@
 .site-title {
-    @extend .sr-only;
     display: inline-block;
     margin: 0;
     font-size: $font-size-h4;
-    font-weight: 600;
+    font-weight: 100;
     line-height: 4rem;
     vertical-align: top;
+
+    @include screen-max-md {
+        display: none;
+    }
 }

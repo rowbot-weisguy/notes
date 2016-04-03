@@ -18,3 +18,13 @@
         font-size: $font-size-base;
     }
 }
+
+.button--create {
+    @include screen-max-sm {
+        padding: 0.8rem;
+
+        i[class^="icon-"]:before {
+            margin-right: 0;
+        }
+    }
+}
