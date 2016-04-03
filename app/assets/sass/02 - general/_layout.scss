@@ -20,10 +20,57 @@
 }
 
 .layout__sidebar {
-    flex: 0 0 30rem;
-    border-right: 1px solid $border;
+    position: relative;
+    z-index: 2;
+
+    @include screen-max-md {
+        position: fixed;
+        top: 8rem;
+        bottom: 0;
+        left: 0;
+        width: 30rem;
+        transition: transform 0.2s ease-in;
+        transform: translateX(-100%);
+
+        &.is-open {
+            transition: transform 0.2s ease-out;
+            transform: translateX(0);
+        }
+    }
+
+    @include screen-min-md {
+        position: relative;
+        top: auto;
+        left: auto;
+        bottom: auto;
+        width: auto;
+        flex: 0 0 30rem;
+    }
 }
 
 .layout__note {
+    position: relative;
+    z-index: 1;
     flex-grow: 1;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($black, 0);
+        transition: background 0.2s ease-in;
+        pointer-events: none;
+    }
+
+    @include screen-max-md {
+        &.is-covered::after {
+            background-color: rgba($black, 0.5);
+            transition-timing-function: ease-out;
+            pointer-events: auto;
+        }
+    }
 }

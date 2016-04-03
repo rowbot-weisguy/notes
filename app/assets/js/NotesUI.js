@@ -70,7 +70,7 @@ var NotesUI = (function() {
 
         noteEl.appendChild(dateEl);
         noteEl.appendChild(titleEl);
-        noteEl.appendChild(bodyEl);
+        // noteEl.appendChild(bodyEl);
 
         return noteEl;
     }
@@ -106,12 +106,15 @@ var NotesUI = (function() {
         noteEl.addEventListener(whichTransitionEvent(), function() {
             noteEl.classList.remove(states.entering);
             createButton.addEventListener('click', createHandler);
+            renderCount();
         });
     }
 
     function deleteHandler() {
-        var deleteButton = document.querySelector(hooks.destroy);
-        deleteButton.removeEventListener('click', deleteHandler);
+        var deleteButtons = document.querySelectorAll(hooks.destroy);
+        for (var i = 0; i < deleteButtons.length; i++) {
+            deleteButtons[i].removeEventListener('click', deleteHandler);
+        }
         var selectedEl = getSelectedElement();
         var selectedId = getSelectedId();
 
@@ -129,7 +132,10 @@ var NotesUI = (function() {
             } else {
                 (document.querySelector(hooks.note).classList.add(states.empty));
             }
-            deleteButton.addEventListener('click', deleteHandler);
+            for (var i = 0; i < deleteButtons.length; i++) {
+                deleteButtons[i].addEventListener('click', deleteHandler);
+            }
+            renderCount();
         });
     }
 
@@ -170,12 +176,14 @@ var NotesUI = (function() {
             var noteTitle = document.querySelector(hooks.title);
             var noteBody = document.querySelector(hooks.body);
             var createButton = document.querySelector(hooks.create);
-            var deleteButton = document.querySelector(hooks.destroy);
+            var deleteButtons = document.querySelectorAll(hooks.destroy);
             noteList.addEventListener('click', selectHandler);
             noteTitle.addEventListener('keyup', updateHandler);
             noteBody.addEventListener('keyup', updateHandler);
             createButton.addEventListener('click', createHandler);
-            deleteButton.addEventListener('click', deleteHandler);
+            for (var i = 0; i < deleteButtons.length; i++) {
+                deleteButtons[i].addEventListener('click', deleteHandler);
+            }
         }
     };
 }());

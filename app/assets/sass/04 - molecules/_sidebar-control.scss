@@ -1,0 +1,61 @@
+.sidebar-control {
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+    line-height: 40px;
+}
+
+.sidebar-control__icon {
+    float: left;
+    margin: 19px 1rem 19px 0;
+}
+
+.sidebar-control__icon,
+.sidebar-control__icon::before,
+.sidebar-control__icon::after {
+    display: block;
+    height: 4px;
+    width: 32px;
+    background-color: $text;
+    transition: transform 0.3s ease-in,
+                background 0.3s ease-in;
+
+}
+
+.sidebar-control__icon::before,
+.sidebar-control__icon::after {
+    content: "";
+    position: absolute;
+}
+
+.sidebar-control__icon::before {
+    transform: translateY(-8px);
+}
+
+.sidebar-control__icon::after {
+    transform: translateY(8px);
+}
+
+.sidebar-control.is-open {
+    @include screen-max-md {
+        .sidebar-control__icon {
+            transform: rotate(90deg);
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .sidebar-control__icon,
+        .sidebar-control__icon::before,
+        .sidebar-control__icon::after {
+            transition: transform 0.3s ease-out,
+                        background 0.3s ease-out;
+        }
+
+        .sidebar-control__icon::before {
+            transform: rotate(135deg);
+        }
+
+        .sidebar-control__icon::after {
+            transform: rotate(45deg);
+        }
+    }
+}

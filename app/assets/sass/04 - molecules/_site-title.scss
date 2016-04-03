@@ -1,4 +1,5 @@
 .site-title {
+    @extend .sr-only;
     display: inline-block;
     margin: 0;
     font-size: $font-size-h4;

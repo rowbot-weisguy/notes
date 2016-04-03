@@ -1,7 +1,11 @@
 .note {
     margin: 0;
-    padding: 4rem;
+    padding: 2rem;
     background-color: $white;
+
+    @include screen-min-md {
+        padding: 4rem;
+    }
 
     &.is-empty {
         display: flex;
@@ -36,6 +40,12 @@
     }
 
     i[class^="icon-"]:before {
+        margin-right: 0;
+        line-height: $font-size-base;
+    }
+
+    &--sidebar {
+        margin-top: 0;
         margin-right: 0;
     }
 }

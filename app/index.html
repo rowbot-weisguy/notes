@@ -8,17 +8,19 @@
     <div class="layout app">
         <nav class="layout__header header">
             <div class="header__left">
-                <h1 class="site-title">Notes</h1>
+                <a class="sidebar-control js-sidebar-control"><span class="sidebar-control__icon"></span></a>
+                <h1 class="site-title">Rowbot Notes</h1>
             </div>
             <div class="header__right">
                 <a class="button js-create-note" href="#"><i class="icon-edit-alt"></i>Create Note</a>
             </div>
         </nav>
         <div class="layout__body">
-            <nav class="layout__sidebar sidebar">
+            <nav class="layout__sidebar sidebar js-sidebar">
                 <ul class="sidebar__main note-preview__list js-note-list"><!-- Note previews load here --></ul>
-                <div class="sidebar__bottom note-preview__count js-note-count">
-                    Notes
+                <div class="sidebar__bottom">
+                    <span class="note-preview__count js-note-count">Notes</span>
+                    <a class="note__delete note__delete--sidebar js-delete-note" href="#"><i class="icon-trash"></i><span class="sr-only">Delete Note</span></a>
                 </div>
             </nav>
             <main class="layout__note note js-note">
