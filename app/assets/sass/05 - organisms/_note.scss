@@ -88,3 +88,16 @@
 .note__empty {
     display: none;
 }
+
+.note__empty-robot {
+    display: block;
+    width: 20rem;
+    height: 20rem;
+    margin: 0 auto;
+    fill: $text;
+}
+
+.note__empty-message {
+    font-style: italic;
+    font-weight: 300;
+}

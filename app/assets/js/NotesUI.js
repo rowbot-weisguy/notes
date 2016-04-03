@@ -93,9 +93,12 @@ var NotesUI = (function() {
         renderNote(parseInt(newSelection.dataset.noteId));
     }
 
-    function createHandler() {
-        var createButton = document.querySelector(hooks.create);
-        createButton.removeEventListener('click', createHandler);
+    function createHandler(e) {
+        e.preventDefault();
+        var createButtons = document.querySelectorAll(hooks.create);
+        for (var i = 0; i < createButtons.length; i++) {
+            createButtons[i].removeEventListener('click', createHandler);
+        }
         var newId = Notes.addNote();
         var note = Notes.getNote(newId);
         var noteEl = generateNote(note);
@@ -105,12 +108,15 @@ var NotesUI = (function() {
         noteEl.classList.add(states.entering);
         noteEl.addEventListener(whichTransitionEvent(), function() {
             noteEl.classList.remove(states.entering);
-            createButton.addEventListener('click', createHandler);
+            for (var i = 0; i < createButtons.length; i++) {
+                createButtons[i].addEventListener('click', createHandler);
+            }
             renderCount();
         });
     }
 
-    function deleteHandler() {
+    function deleteHandler(e) {
+        e.preventDefault();
         var deleteButtons = document.querySelectorAll(hooks.destroy);
         for (var i = 0; i < deleteButtons.length; i++) {
             deleteButtons[i].removeEventListener('click', deleteHandler);
@@ -139,7 +145,7 @@ var NotesUI = (function() {
         });
     }
 
-    function updateHandler() {
+    function updateHandler(e) {
         var id = getSelectedId();
         var title = document.querySelector(hooks.title).value;
         var body = document.querySelector(hooks.body).value;
@@ -175,12 +181,14 @@ var NotesUI = (function() {
             var noteList = document.querySelector(hooks.list);
             var noteTitle = document.querySelector(hooks.title);
             var noteBody = document.querySelector(hooks.body);
-            var createButton = document.querySelector(hooks.create);
+            var createButtons = document.querySelectorAll(hooks.create);
             var deleteButtons = document.querySelectorAll(hooks.destroy);
             noteList.addEventListener('click', selectHandler);
             noteTitle.addEventListener('keyup', updateHandler);
             noteBody.addEventListener('keyup', updateHandler);
-            createButton.addEventListener('click', createHandler);
+            for (var i = 0; i < createButtons.length; i++) {
+                createButtons[i].addEventListener('click', createHandler);
+            }
             for (var i = 0; i < deleteButtons.length; i++) {
                 deleteButtons[i].addEventListener('click', deleteHandler);
             }
