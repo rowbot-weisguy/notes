@@ -91,6 +91,7 @@ var NotesUI = (function() {
         newSelection.classList.add(states.selected);
         document.querySelector(hooks.note).classList.remove(states.empty);
         renderNote(parseInt(newSelection.dataset.noteId));
+        SidebarUI.closeSidebar();
     }
 
     function createHandler(e) {
