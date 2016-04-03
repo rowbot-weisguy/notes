@@ -24,6 +24,7 @@
 
         .note__empty {
             display: block;
+            animation: appear-from-below 0.5s ease-out;
         }
     }
 }
@@ -41,7 +42,7 @@
 
     i[class^="icon-"]:before {
         margin-right: 0;
-        line-height: $font-size-base;
+        line-height: 2.4rem;
     }
 
     &--sidebar {

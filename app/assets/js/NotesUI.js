@@ -117,12 +117,14 @@ var NotesUI = (function() {
 
     function deleteHandler(e) {
         e.preventDefault();
+        var selectedEl = getSelectedElement();
+        var selectedId = getSelectedId();
+        if (selectedEl == null) return;
+
         var deleteButtons = document.querySelectorAll(hooks.destroy);
         for (var i = 0; i < deleteButtons.length; i++) {
             deleteButtons[i].removeEventListener('click', deleteHandler);
         }
-        var selectedEl = getSelectedElement();
-        var selectedId = getSelectedId();
 
         selectedEl.classList.add(states.leaving);
         selectedEl.addEventListener(whichTransitionEvent(), function() {
