@@ -1,6 +1,6 @@
-# Skyrocket Notes
+# Notes
 
-A simple note-taking app built with SASS and Javascript using `localStorage`.
+A simple note-taking app built using `localStorage`.
 
 ## Installation
 
