@@ -1,6 +1,22 @@
-// Lots borrowed from http://www.mikestreety.co.uk/blog/an-advanced-gulpjs-file
-// Path configs first
+var source = require('vinyl-source-stream');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var browserify = require('browserify');
+var babelify = require('babelify');
+var watchify = require('watchify');
+var notify = require('gulp-notify');
 
+var sass = require('gulp-ruby-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var scsslint = require('gulp-scss-lint');
+var rename = require('gulp-rename');
+var buffer = require('vinyl-buffer');
+
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+var historyApiFallback = require('connect-history-api-fallback')
+
+// Paths config
 var basePaths = {
     src: './app/assets/',
     dest: './public/assets/'
@@ -12,132 +28,122 @@ var paths = {
     },
     images: {
         src: basePaths.src + 'images/',
-        dest: basePaths.dest + 'images/min/'
+        dest: basePaths.dest + 'images/'
     },
-    icons: {
+    fonts: {
         src: basePaths.src + 'font/',
         dest: basePaths.dest + 'font/'
     },
     scripts: {
         src: basePaths.src + 'js/',
-        dest: basePaths.dest + 'js/min/'
+        dest: basePaths.dest + 'js/'
     },
     styles: {
         src: basePaths.src + 'sass/',
-        dest: basePaths.dest + 'css/min/'
+        dest: basePaths.dest + 'css/'
     }
 };
-
 var appFiles = {
     html: paths.html.src + '**/*.html',
     styles: paths.styles.src + '**/*.scss',
-    icons: paths.icons.src + '**/*.*',
-    scripts: paths.scripts.src + '**/*.js'
+    fonts: paths.fonts.src + '**/*.*',
+    scripts: paths.scripts.src + 'main.js'
 };
 
-var vendorFiles = {
-    styles: '',
-    scripts: ''
-};
-
-// Gulp stuff begin
-
-var gulp = require('gulp');
-
-var es = require('event-stream');
-var gutil = require('gulp-util');
-var scsslint = require('gulp-scss-lint');
-var browserSync = require('browser-sync').create();
-
-var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*'],
-    replaceString: /\bgulp[\-.]/
-});
-
-// Allows gulp --dev to be run for a more verbose output
-var isProduction = true;
-var sassStyle = 'compressed';
-var sourceMap = false;
-
-if(gutil.env.dev === true) {
-    sassStyle = 'expanded';
-    sourceMap = true;
-    isProduction = false;
-}
-
-var changeEvent = function(evt) {
-    gutil.log('File', gutil.colors.cyan(evt.path.replace(new RegExp('/.*(?=/' + basePaths.src + ')/'), '')), 'was', gutil.colors.magenta(evt.type));
-};
+/*
+  Styles Task
+*/
 
 gulp.task('html', function() {
     return gulp.src(appFiles.html)
         .pipe(gulp.dest(paths.html.dest));
 });
 
-gulp.task('css', function(){
-    var sassFiles = gulp.src(appFiles.styles)
-    .pipe(plugins.rubySass({
-        style: sassStyle, sourcemap: sourceMap, precision: 2
-    }))
-    .on('error', function(err){
-        new gutil.PluginError('CSS', err, {showStack: true});
-    });
+gulp.task('fonts', function(){
+    gulp.src(appFiles.fonts)
+        .pipe(gulp.dest(paths.fonts.dest));
+});
 
-    return es.concat(gulp.src(vendorFiles.styles), sassFiles)
-        .pipe(plugins.concat('style.min.css'))
-        .pipe(plugins.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(plugins.size())
+gulp.task('styles', function(){
+    return sass(appFiles.styles, { sourcemap: true, precision: 2 })
+        .on('error', handleErrors)
+        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(gulp.dest(paths.styles.dest))
-        .pipe(browserSync.stream());
+        .pipe(reload({stream:true}));
 });
 
-gulp.task('icons', function() {
-    return gulp.src(appFiles.icons)
-        .pipe(gulp.dest(paths.icons.dest));
-});
-
-gulp.task('scripts', function(){
-    gulp.src(vendorFiles.scripts.concat(appFiles.scripts))
-        .pipe(plugins.concat('app.js'))
-        .pipe(plugins.size())
-        .pipe(gulp.dest(paths.scripts.dest));
-
-});
-
-gulp.task('watch', ['css', 'scripts'], function(){
-    gulp.watch(appFiles.styles, ['css']).on('change', function(evt) {
-        changeEvent(evt);
-    });
-    gulp.watch(paths.scripts.src + '*.js', ['scripts']).on('change', function(evt) {
-        changeEvent(evt);
+/*
+  Browser Sync
+*/
+gulp.task('browser-sync', function() {
+    browserSync({
+        // we need to disable clicks and forms for when we test multiple rooms
+        server : { baseDir: paths.html.dest },
+        middleware : [ historyApiFallback() ],
+        ghostMode: false
     });
 });
 
+function handleErrors() {
+  var args = Array.prototype.slice.call(arguments);
+  notify.onError({
+    title: 'Compile Error',
+    message: '<%= error.message %>'
+  }).apply(this, args);
+  this.emit('end'); // Keep gulp from hanging on this task
+}
 
+function buildScript(file, watch) {
+  var props = {
+    entries: [paths.scripts.src + file],
+    debug : true,
+    cache: {},
+    packageCache: {},
+    transform:  [babelify.configure({stage : 0 })]
+  };
+
+  // watchify() if watch requested, otherwise run browserify() once
+  var bundler = watch ? watchify(browserify(props)) : browserify(props);
+
+  function rebundle() {
+    var stream = bundler.bundle();
+    return stream
+      .on('error', handleErrors)
+      .pipe(source(file))
+      .pipe(gulp.dest(paths.scripts.dest))
+      // If you also want to uglify it
+      // .pipe(buffer())
+      // .pipe(uglify())
+      // .pipe(rename('app.min.js'))
+      // .pipe(gulp.dest('./build'))
+      .pipe(reload({stream:true}))
+  }
+
+  // listen for an update and run rebundle
+  bundler.on('update', function() {
+    rebundle();
+    gutil.log('Rebundle...');
+  });
+
+  // run it once the first time buildScript is called
+  return rebundle();
+}
+
+gulp.task('scripts', function() {
+  return buildScript('main.js', false); // this will run once because we set watch to false
+});
+
+// run 'scripts' task first, then watch for future changes
+gulp.task('default', ['html','fonts','styles','scripts','browser-sync'], function() {
+  gulp.watch(paths.styles.src, ['styles']); // gulp watch for sass changes
+  // gulp.watch(paths.html.src, ['html']); // gulp watch for html changes
+  return buildScript('main.js', true); // browserify watch for JS changes
+});
+
+/*
+  Style Linter
+*/
 gulp.task('scss-lint', function() {
   return gulp.src(appFiles.styles)
     .pipe(scsslint());
 });
-
-// Static Server + watching scss/html files
-gulp.task('serve', ['css'], function() {
-
-    browserSync.init({
-        server: "./public"
-    });
-
-    gulp.watch(appFiles.styles, ['css']).on('change', function(evt) {
-        changeEvent(evt);
-    });
-    gulp.watch(appFiles.html, ['html']).on('change', function(evt) {
-        changeEvent(evt);
-    });
-    gulp.watch(appFiles.scripts, ['scripts']).on('change', function(evt) {
-        changeEvent(evt);
-    });
-    gulp.watch(appFiles.html).on('change', browserSync.reload);
-    gulp.watch(appFiles.scripts).on('change', browserSync.reload);
-});
-
-gulp.task('build', ['html', 'css', 'icons', 'scripts']);
-gulp.task('default', ['build', 'serve']);
