@@ -136,7 +136,7 @@ gulp.task('scripts', function() {
 // run 'scripts' task first, then watch for future changes
 gulp.task('default', ['html','fonts','styles','scripts','browser-sync'], function() {
   gulp.watch(paths.styles.src, ['styles']); // gulp watch for sass changes
-  // gulp.watch(paths.html.src, ['html']); // gulp watch for html changes
+  gulp.watch(paths.html.src, ['html']); // gulp watch for html changes
   return buildScript('main.js', true); // browserify watch for JS changes
 });
 

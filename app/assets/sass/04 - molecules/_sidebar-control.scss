@@ -1,13 +1,18 @@
 .sidebar-control {
     display: inline-block;
+    padding: 0;
+    border: 0;
+    margin-right: 1rem;
+    background-color: transparent;
+    line-height: 40px;
     overflow: hidden;
     cursor: pointer;
-    line-height: 40px;
+    -webkit-appearance: none;
 }
 
 .sidebar-control__icon {
     float: left;
-    margin: 19px 1rem 19px 0;
+    margin: 19px 0;
 }
 
 .sidebar-control__icon,
