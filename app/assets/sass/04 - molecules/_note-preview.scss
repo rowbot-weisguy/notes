@@ -16,27 +16,44 @@
         background-color: $color-primary-bg;
     }
 
-    &.is-entering {
-        background-color: lighten($color-primary, 20%);
-
+    &.note-preview-enter {
         & ~ .note-preview {
-            animation: 0.3s move-down ease-in-out;
+            transform: translateY(-100%);
+            transition: all 0.3s ease-out;
         }
     }
 
-    &.is-leaving {
-        background-color: lighten($color-danger, 10%);
+    &.note-preview-enter-active {
+        background-color: lighten($color-primary, 20%);
+
+        & ~ .note-preview {
+            transform: translateY(0);
+        }
+    }
+
+    &.note-preview-leave {
+        transform: translateX(0);
         transition: transform 0.3s ease-in;
+
+        & ~ .note-preview {
+            transform: translateY(0);
+            transition: 0.2s transform ease-out 0.1s;
+        }
+    }
+
+    &.note-preview-leave-active {
+        background-color: lighten($color-danger, 10%);
         transform: translateX(-300%);
 
         & ~ .note-preview {
-            animation: 0.2s move-up ease-in-out 0.1s;
+            transform: translateY(-100%);
         }
     }
 }
 
 .note-preview__list {
-    margin: 0 0 4rem;
+    width: 100%;
+    margin: 0;
     padding: 0;
 }
 
@@ -69,7 +86,7 @@
 }
 
 .note-preview__count {
-    display: block;
+    float: left;
     padding: 1rem;
     background-color: $white;
 }

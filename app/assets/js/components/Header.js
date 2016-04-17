@@ -12,6 +12,12 @@ export default class Header extends React.Component {
         }
     }
 
+    createHandler(event) {
+        event.preventDefault();
+        this.props.createNote();
+        this.props.selectNote(this.props.notes.length - 1);
+    }
+
     render() {
         return (
             <nav className="layout__header header">
@@ -24,7 +30,7 @@ export default class Header extends React.Component {
                     <h1 className="site-title">{config.name}</h1>
                 </div>
                 <div className="header__right">
-                    <button className="button button--create" onClick={this.props.createNote}><i className="icon-edit-alt"></i><span className="u-sm-hide">{config.actions.create}</span></button>
+                    <button className="button button--create" onClick={this.createHandler}><i className="icon-edit-alt"></i><span className="u-sm-hide">{config.actions.create}</span></button>
                 </div>
             </nav>
         )

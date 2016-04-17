@@ -19,7 +19,7 @@ export default class App extends React.Component {
         super();
 
         this.state = {
-            notes: {},
+            notes: [],
             sidebar: 'IS_CLOSED',
             selected: null
         }
@@ -28,46 +28,55 @@ export default class App extends React.Component {
     componentDidMount() {
         base.syncState('notes', {
             context: this,
-            state: 'notes'
+            state: 'notes',
+            asArray: true
         });
 
-        base.syncState('selected', {
+        base.fetch('selected', {
             context: this,
-            state: 'selected'
+            then(data) {
+                this.selectNote(data.selected);
+            }
         });
     }
 
-    createNote(event) {
-        event.preventDefault();
+    createNote(title = '', body = '') {
         var note = {
-            title: '',
+            id: (new Date()).getTime(),
+            title: title,
             date: h.formatDate(new Date()),
-            body: ''
-        }
+            body: body
+        };
         this.addNote(note);
     }
 
     addNote(note) {
-        var timestamp = (new Date()).getTime();
-        this.state.notes['note-' + timestamp] = note;
+        this.state.notes.push(note);
         this.setState({ notes: this.state.notes });
     }
 
     selectNote(key) {
         this.state.selected = key;
-        this.setState({ selected: this.state.selected })
+        this.setState({ selected: this.state.selected });
+        base.post('selected', {
+            data: {
+                selected: this.state.selected
+            }
+        });
         this.closeSidebar();
     }
 
     updateNote(key, title, body) {
-        this.state.notes[key].title = title;
-        this.state.notes[key].body = body;
-        this.setState({ notes: this.state.notes });
+        if (this.state.notes[key] !== null) {
+            this.state.notes[key].title = title;
+            this.state.notes[key].body = body;
+            this.setState({ notes: this.state.notes });
+        }
     }
 
     deleteNote(key) {
         this.state.notes[key] = null;
-        this.state({ notes: this.state.notes });
+        this.setState({ notes: this.state.notes });
     }
 
     openSidebar() {
@@ -83,9 +92,9 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="layout app">
-                <Header sidebar={this.state.sidebar} openSidebar={this.openSidebar} closeSidebar={this.closeSidebar} createNote={this.createNote} />
+                <Header notes={this.state.notes} sidebar={this.state.sidebar} selected={this.state.selected} selectNote={this.selectNote} openSidebar={this.openSidebar} closeSidebar={this.closeSidebar} createNote={this.createNote} />
                 <div className="layout__body">
-                    <Sidebar sidebar={this.state.sidebar} notes={this.state.notes} selected={this.state.selected} selectNote={this.selectNote} deleteNote={this.deleteNote} />
+                    <Sidebar  notes={this.state.notes} sidebar={this.state.sidebar} selected={this.state.selected} selectNote={this.selectNote} deleteNote={this.deleteNote} />
                     <Note notes={this.state.notes} selected={this.state.selected} updateNote={this.updateNote} deleteNote={this.deleteNote} />
                 </div>
             </div>

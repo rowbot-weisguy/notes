@@ -14,6 +14,9 @@ let helpers = {
             hours: d.getHours(),
             minutes: d.getMinutes()
         };
+    },
+    pluralize: function (count, word) {
+        return count === 1 ? word : word + 's';
     }
 }
 

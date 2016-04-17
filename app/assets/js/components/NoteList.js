@@ -5,14 +5,11 @@ import autobind from 'autobind-decorator';
 @autobind
 export default class NoteList extends React.Component {
 
-    renderNote(key) {
-        let note = this.props.notes[key];
-
+    renderNote(note, key) {
         return (
             <li key={key} className={'note-preview' + (key === this.props.selected ? ' is-selected' : '')} onClick={this.props.selectNote.bind(null, key)}>
-                <p className='note-preview__title'>{note.title.length > 0 ? note.title : 'Untitled Note'}</p>
                 <p className='note-preview__date'>{note.date.month + ' ' + note.date.date + ', ' + note.date.year}</p>
-                {note.body.length > 0 ? <p className='note-preview__excerpt'>{note.body}</p> : ''}
+                <p className='note-preview__title'>{note.title.length > 0 ? note.title : 'Untitled Note'}</p>
             </li>
         )
     }
@@ -20,13 +17,13 @@ export default class NoteList extends React.Component {
     render() {
         return (
             <CSSTransitionGroup
-                className='sidebar__main note-preview__list'
+                className='note-preview__list layout__sidebar-scroll'
                 component='ul'
                 transitionName='note-preview'
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500}
+                transitionEnterTimeout={300}
+                transitionLeaveTimeout={300}
             >
-                {Object.keys(this.props.notes).map(this.renderNote)}
+                {this.props.notes.map(this.renderNote).reverse()}
             </CSSTransitionGroup>
         )
     }

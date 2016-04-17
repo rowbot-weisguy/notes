@@ -13,7 +13,6 @@ import NotFound from './components/NotFound';
 var routes = (
     <Router history={createHistory()}>
         <Route path="/" component={App} />
-        <Route path="/:userId" component={App} />
         <Route path="*" component={NotFound} />
     </Router>
 )
