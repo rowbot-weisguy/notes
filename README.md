@@ -11,6 +11,9 @@ A simple note-taking app built using `localStorage`.
 
 ## Process
 
+_Update: I rebuilt this using React as a further learning exercise. You can check
+it out in the `react` branch if you're curious how that looks.
+
 I thought it might be helpful for reviewers to explain my approach at a high level.
 
 First off, this app was built as part of a hiring exercise (Hi, @Spittal!), and
@@ -23,7 +26,7 @@ CSS architecture. SCSS is my tool of choice, so I had to get a basic build pipel
 in place to support that. That was the first and largest rabbit hole I went down.
 
 I decided arbitrarily that I would try `gulp` instead of `grunt` as a task runner,
-so I did a bunch of research of others' `gulpfiles`, and ended up cobbling one
+so I did a bunch of research of others' `gulpfile`s, and ended up cobbling one
 together for myself. Unfortunately, I had to adjust it manually several times as
 I was working as I discovered my particular needs for the project.
 
@@ -32,18 +35,16 @@ was going to execute this project at the code and build level. Fortunately, I
 had a strong vision for the UI.
 
 I got into my happy place when I was writing SCSS for everything, and I think it
-ended up looking pretty good. I didn't bother making it responsive yet because it
-wasn't a requirement and I think my code reviewer will be looking at this at their
-desk.
+ended up looking pretty good.
 
-I started writing JavaScript last, though. I was a bit worried about how I would
-approach it. When I was asked to do this project, I realized that I had never
-built a full app on my own in JavaScript. I have always just extended the
-functionality for existing larger apps, often with jQuery. When there's a pattern
-in place for how to extend a codebase, it's really easy to work with!
+I started writing JavaScript after I styled the components. I was a bit worried
+about how I would approach it, to be honest. When I was asked to do this project,
+I realized that I had never built a full app on my own in JavaScript from scratch.
+I had always just extended the functionality for existing larger apps, often
+with jQuery.
 
-This wasn't like that, though, so I had to think basic. I remembered liking the
-[Module Pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript)
+This wasn't like that, though, so I had to think basic. I remembered reading about
+the [Module Pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript)
 that Addy Osmani wrote about in his open source book, so I chose to employ that.
 I had already decided to use localStorage so that I could keep all my code
 entirely client-side and not worry about having a server application, but this
@@ -55,7 +56,14 @@ What if both are on the front end? My answer to that question was to write 2
 separate modules. `Notes`, and `NotesUI`. One for handling data and saving / loading
 from localStorage, and one for handling the view / events / DOM manipulations.
 
+After talking to a friend about it, it turns out I was just replicating MVC.
+This makes sense in hindsight. I didn't have a lot of application development
+experience, but it is still the pattern I was most familiar with it, albeit
+latently.
+
 At the end of the day, this feels to me likes it's more complicated than it needed
-to be. Still, I'm pretty happy with it! It feels pretty slick.
+to be. It taught me that it's easy to overengineer
+
+That said, I'm pretty happy with it. It feels pretty slick 🏎
 
 Thanks to @Spittal and @fishfillet for the nudges.
